@@ -38,7 +38,7 @@ x_ros, y_ros = ros.fit_resample(x, y)
 df=pd.DataFrame(x_ros)
 df['Class']=y_ros
 
-#------------------------------------- Simple Random Sampling--------------------------------------------------------
+#Simple Random Sampling
 z=1.96
 p=0.5
 E=0.05
@@ -48,12 +48,12 @@ sample_size = math.ceil((z*z*p*(1-p))/(E*E))
 samples=[]
 s1 = df.sample(n=sample_size, random_state=0)
 samples.append(s1)
-# -----------------------------------------------Systematic Sampling----------------------------------------------------
+# Systematic Sampling
 n = len(df)
 k = int(math.sqrt(n))
 s2 = df.iloc[::k]
 samples.append(s2)
-# ----------------------------------------------Cluster Sampling--------------------------------------------------------
+# Cluster Sampling
 z=1.96
 p=0.5
 E=0.05
@@ -76,13 +76,13 @@ s3 = data[data.cluster.isin(random_chosen_clusters)]
 s3.drop(['cluster'], axis=1, inplace=True)
 samples.append(s3)
 # print(len(df))
-# --------------------------------------------Stratefied sampling------------------------------------------------------------------------------
+# Stratefied sampling
 
 s4=df.groupby('Class', group_keys=False).apply(lambda x: x.sample(190))
 samples.append(s4)
 # print("Stratified")
 
-# ---------------------------------------------------Convenience sampling-------------------------------------------------------------------------
+# Convenience sampling
 s5=df.head(400)
 samples.append(s5)
 # print(s5)
